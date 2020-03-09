@@ -92,6 +92,7 @@ Writes a unsigned 16bit integer by eventually turning on the comma/point on a ce
 - num: 16 bit unsigned integer from 0 to 65535
 - pointPos: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
 - rightspace: places to leave free on the right. Put 0 if you want to right-align the number  
+
 Returns the number of digits printed (used by putsn for writing the minus sign near the most-left digit).  
 Note: pointPos is used for fixed-point decimal notation.  
 
