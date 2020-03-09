@@ -12,12 +12,19 @@ Library is tested with Microchip PIC Microcontrollers up to 32MHz. The critical 
 #### Pins used
 You need 3 GPIOS defined as outputs: Data, Clock and Latch (!CS/LOAD).  
 
+### Setup
+
+Changes to be made in the header library (_MAX7219sz.h_):
+- change _DIGITS_ value to fit your display
+- change delay functions if you want to use a different delay library
+- change GPIO definitions  
+
 ### Library Functions
 
 ```c
 void MAX7219_init(void)
 ```
-Initialize the MAX7219 using the number of digits defined by constant DIGITS in library header file, _NODECODE_ mode, max brightness.
+Initialize the MAX7219 using the number of digits defined by constant _DIGITS_ in library header file, _NODECODE_ mode, max brightness.
 
 ---
 
