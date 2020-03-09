@@ -23,7 +23,7 @@ It's reccomended to use the [MPLAB Code Configurator](https://www.microchip.com/
 
 > Library uses the _PIN_SetLow()_ and _PIN_SetHigh()_ functions created by the Code Configurator, so the main library file (_MAX7219sz.c_) includes the "mcc_generated_files/pin_manager.h" file. The _device_config.h_ file is also included because in this header is defined the _XTAL_FREQ_ value, used by XC8 builtin delay functions.
 
-Now you can make changes in the header library file(_MAX7219sz.h_):  
+Now you can make changes in the header library file (_MAX7219sz.h_):  
 
 - change _DIGITS_ value to fit your display. Actually the library is tested only for 8 digits
 - if you want to use different delay libraries, change _DELAYCURSOR_ and _DELAYSCROLL_ macros. You can also change the delay values in those two macros if you desire different writing/scrolling speeds. 
