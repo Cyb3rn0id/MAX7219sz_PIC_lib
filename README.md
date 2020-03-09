@@ -5,6 +5,7 @@ Library is licensed under [AGPLv3 license](https://github.com/Cyb3rn0id/MAX7219_
 You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.
 
 ### Hardware implementation
+
 #### Microcontroller Instruction Cycle
 Library is tested with Microchip PIC Microcontrollers up to 32MHz. The critical part is that MAX7219 needs a minimum pulse duration of 50nS. With a 32MHz 8bit PIC there are about 62,5nS pulse durations (instruction cycle of a PIC12/16/18 is 4 clock cycles). Using a PIC microcontroller having a Fosc>32MHz you need to insert delays between clock and latch pulses.  
 
@@ -18,14 +19,14 @@ void MAX7219_init(uint8_t digitN, uint8_t decodeM)
 ```
 Initialize the MAX7219.
 - _digitN_ : number of digits you've on the display, from 1 to 8
-- _decodeM_: decode mode, possible values: DECODE (for BCD code B) | NODECODE  
+- _decodeM_: decode mode, possible values: _DECODE_ (for BCD code B) | _NODECODE_  
 
 ---
 
 ```c
 void MAX7219_clear(void)
 ```
-Clears all digits for both decode and nodecode modes.  
+Clears all digits for both _DECODE_ and _NODECODE_ modes.  
 Display remains ON: only internal shift register is cancelled.  
 
 ---
@@ -34,7 +35,7 @@ Display remains ON: only internal shift register is cancelled.
 void MAX7219_clearc(void)
 ```
 Clears all digits using the cursor effect from right to left.  
-This function is used only for the NODECODE mode.  
+This function is used only for the _NODECODE_ mode.  
 Display remains ON: only internal shift register is cancelled.  
 
 ---
@@ -46,7 +47,7 @@ Sends a byte to the selected register.
 - _reg_: MAX7219 register to write in
 - _dat_: data to be written in the register  
 
-Note: This function is used also for writing chars in the nodecode mode example:  
+Note: This function is used also for writing chars in the _NODECODE_ mode. Example:  
 _MAX7219_send(8,'A')_ => writes the A letter on the 8th digit (the most-left digit).
 
 ---
@@ -57,9 +58,9 @@ void MAX7219_putch(uint8_t digit, char ch, bool point)
 Writes a single char on the selected digit.  
 - _digit_: digit number to write on (from 1 to 8)
 - _ch_: char to write (ex.: 'g', '1', '.' ecc)
-- _point_: will turn on (true) or off (false) the point/comma on the selected digit  
+- _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit  
 
-Note: you can use both uppercase and lowercase letters, in every case letters will be converted to use the defined in the library header.  
+Note: you can use both uppercase and lowercase letters, in every case letters will be converted to use the defined font in the library header.  
 You can write all letters but W,X,Z that can't be effectively rendered on 7-segments displays.
 
 ---
@@ -70,22 +71,22 @@ void MAX7219_numch(uint8_t digit, uint8_t n, bool point)
 Writes a number as char on the selected digit.
 - _digit_: digit number to write on (from 1 to 8)
 - _n_: number to write, inserted as integer from 0 to 9
-- _point_: will turn on (true) or off (false) the point/comma on the selected digit
+- _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit
 
 ---
 
 ```c
 void MAX7219_setDecode(void)
 ```
-Turns on the Decode Mode (BCD Code B).  
-From this moment you can't use the user-defined font and you must use only the MAX7219_send function for writing numbers from 0 to 9 and H,E,L,P letters and minus sign.  
+Turns on the _DECODE_ Mode (BCD Code B).  
+From this moment you can't use the user-defined font and you must use only the _MAX7219_send_ function for writing numbers from 0 to 9 and H,E,L,P letters and minus sign.  
 
 ---
 
 ```c
 void MAX7219_setNoDecode(void)
 ```
-Turns on the No-Decode mode (you must use chars and numbers as defined in the library header).  
+Turns on the _NODECODE_ mode (you must use chars and numbers as defined in the library header).  
 
 ---
 
@@ -111,7 +112,7 @@ For exiting the test mode you must recall the _MAX7219_init_ function since the 
 void MAX7219_shutdown(bool yesno)
 ```
 Turns on or off the display visualization.  
-- _yesno_: true=no display visualization. false=display is on.  
+- _yesno_: _true_=no display visualization | _false_=display is on.  
 
 Note: shift register content is not deleted, so digits data are retained.  
 
@@ -121,8 +122,8 @@ Note: shift register content is not deleted, so digits data are retained.
 void MAX7219_puts(const char *s, bool cursor)
 ```
 Writes a string on the display using the font defined in the library header, using or no the cursor visual effect, from left to right.  
-- _s_: string to write (ex.: "hello")
-- _cursor_: true=use the cursor effect, false=string appears on the digits without visual effects  
+- _s_: string to write (ex.: _"hello"_)
+- _cursor_: _true_=use the cursor effect | _false_=string appears on the digits without visual effects  
 
 ---
 
