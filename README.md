@@ -31,7 +31,7 @@ Send a byte to the register
 Note: This function is used also for writing chars in the nodecode mode (ex.: MAX7219_send(8,'A') => writes A letter on the 8th digit)
 
 ```c
-void MAX7219_char(uint8_t digit, uint8_t ch, bool point)
+void MAX7219_char(uint8_t digit, char ch, bool point)
 ```
 Puts a single char
 - digit: digit number to write on (from 1 to 8)
