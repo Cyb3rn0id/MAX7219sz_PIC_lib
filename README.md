@@ -2,24 +2,34 @@
 
 This is a library for MAX721 and 7-segments displays (no led matrix) to be used with Microchip PIC microcontrollers.  
 Library is licensed under [AGPLv3 license](https://github.com/Cyb3rn0id/MAX7219_PIC_lib/blob/master/LICENSE).  
-You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.
 
-### Hardware implementation
+You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.  
+  
+## Implementation notes
 
-#### Microcontroller Instruction Cycle
+### Microcontroller Instruction Cycle
 Library is tested with Microchip PIC Microcontrollers up to 32MHz. The critical part is that MAX7219 needs a minimum pulse duration of 50nS. With a 32MHz 8bit PIC there are about 62,5nS pulse durations (instruction cycle of a PIC12/16/18 is 4 clock cycles). Using a PIC microcontroller having a Fosc>32MHz you need to insert delays between clock and latch pulses.  
 
-#### Pins used
+### Pins used
 You need 3 GPIOS defined as outputs: Data, Clock and Latch (!CS/LOAD).  
+  
+## Setup
 
-### Setup
+It's reccomended to use the [MPLAB Code Configurator](https://www.microchip.com/mplab/mplab-code-configurator): choose 3 pins, make them digital outputs and rename them as: _MAX_DAT_, _MAX_CLK_ and _MAX_LAT_:  
 
-Changes to be made in the header library (_MAX7219sz.h_):
-- change _DIGITS_ value to fit your display
-- change delay functions if you want to use a different delay library
-- change GPIO definitions  
+- _MAX_DAT_ : connected to MAX7219 _DIN_ pin (pin n°1)
+- _MAX_CLK_ : connected to MAX7219 _CLK_ pin (pin n°13)
+- _MAX_LAT_ : connected to MAX7219 _LOAD/!CS_ pin (pin n°12)
 
-### Library Functions
+> Library uses the _PIN_SetLow()_ and _PIN_SetHigh()_ functions created by the Code Configurator, so the main library file (_MAX7219sz.c_) includes the "mcc_generated_files/pin_manager.h" file. The _device_config.h_ file is also included because in this header is defined the _XTAL_FREQ_ value, used by XC8 builtin delay functions.
+
+Now you can make changes in the header library file(_MAX7219sz.h_):  
+
+- change _DIGITS_ value to fit your display. Actually the library is tested only for 8 digits
+- if you want to use different delay libraries, change _DELAYCURSOR_ and _DELAYSCROLL_ macros. You can also change the delay values in those two macros if you desire different writing/scrolling speeds. 
+  
+  
+## Library Functions
 
 ```c
 void MAX7219_init(void)
