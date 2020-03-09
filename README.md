@@ -15,11 +15,9 @@ You need 3 GPIOS defined as outputs: Data, Clock and Latch (!CS/LOAD).
 ### Library Functions
 
 ```c
-void MAX7219_init(uint8_t digitN, uint8_t decodeM)
+void MAX7219_init(void)
 ```
-Initialize the MAX7219.
-- _digitN_ : number of digits you've on the display, from 1 to 8
-- _decodeM_: decode mode, possible values: _DECODE_ (for BCD code B) | _NODECODE_  
+Initialize the MAX7219 using the number of digits defined by constant DIGITS in library header file, _NODECODE_ mode, max brightness.
 
 ---
 
@@ -150,3 +148,9 @@ As above but writes a 16bit signed integer by putting a minus sign near the most
 
 Note: _pointPos_ is intenedd to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
 
+---
+
+```c
+void MAX7219_scroll(const char *s);
+```
+Writes a constant string using scrolling effect, from right to left.
