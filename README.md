@@ -84,7 +84,7 @@ Writes a single char on the selected digit.
 - _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit  
 
 Note: you can use both uppercase and lowercase letters, in every case letters will be converted to use the defined font in the library header.  
-You can write all letters but W,X,Z that can't be effectively rendered on 7-segments displays.
+You can write all letters but W,X that can't be effectively rendered on 7-segments displays. Some other chars will look weird (the Z is rendered as 2) but..hey... it's a 7-segment display!  
 
 ---
 
@@ -135,7 +135,7 @@ For exiting the test mode you must recall the _MAX7219_init_ function since the 
 void MAX7219_shutdown(bool yesno)
 ```
 Turns on or off the display visualization.  
-- _yesno_: _true_=no display visualization | _false_=display is on.  
+- _yesno_: _true_:no display visualization | _false_:display is on.  
 
 Note: shift register content is not deleted, so digits data are retained.  
 
@@ -146,7 +146,7 @@ void MAX7219_puts(const char *s, bool cursor)
 ```
 Writes a string on the display using the font defined in the library header, using or no the cursor visual effect, from left to right.  
 - _s_: string to write (ex.: _"hello"_)
-- _cursor_: _true_=use the cursor effect | _false_=string appears on the digits without visual effects  
+- _cursor_: _true_:use the cursor effect | _false_:string appears on the digits without visual effects  
 
 ---
 
@@ -158,9 +158,13 @@ Writes a unsigned 16bit integer by eventually turning on the comma/point on a ce
 - _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
-Returns: position of most-left printed digit (used by _MAX7219_putsn_ for writing the minus sign near the most-left digit).  
+Returns: position of most-left printed digit.
 
-Note: _pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+Numbers are right-aligned, you can use _rightspace_ parameter also for move them on the left.  
+
+_pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+
+Function will remove also previous numbers from digits if the current number to be printed is smaller than previous one: if you print "12345" and after you'll print "1" in other cases you'll visualize 12341 since you're printing 1 and the previous digits will remain. The library keeps in mind the most-left used digit and will remove all previous digits until the new ones but does not perform a display clear that will cause flickering: only previous unused digits are cancelled.  
 
 ---
 
@@ -172,9 +176,9 @@ As above but writes a 16bit signed integer by putting a minus sign near the most
 - _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
-Returns: minus sign position (position of most-left printed digit)  
+Returns: minus sign position (position of most-left printed digit).  
 
-Note: _pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+All considerations made for the _MAX7219_putun_ are applied also to this function.  
 
 ---
 
