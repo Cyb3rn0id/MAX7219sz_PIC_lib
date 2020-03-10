@@ -19,6 +19,9 @@ MAX7219 needs 3 GPIOs (General Purpose Input/Output).
 
 ### Limitations
 Library is currently tested for a single MAX7219 (8 Digits) and only for 7-segment displays. Led Matrix are not supported.
+
+### Misc Info
+Digits are numbered from right (1) to left (8)  
   
 ## Libray Setup
 
