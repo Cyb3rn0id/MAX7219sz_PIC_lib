@@ -6,6 +6,8 @@ This is a library for MAX7219 and 7-segments displays (no led matrix) to be used
 Library is licensed under [AGPLv3 license](https://github.com/Cyb3rn0id/MAX7219_PIC_lib/blob/master/LICENSE).  
 
 You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.  
+
+![MAX7219 and 7-Segments Led Display](image.jpg)  
   
 ## Preliminary Info
 
