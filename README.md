@@ -156,10 +156,10 @@ Writes a string on the display using the font defined in the library header, usi
 ---
 
 ```c
-uint8_t MAX7219_putun(uint16_t num, uint8_t decimals, uint8_t rightspace)
+uint8_t MAX7219_putun(uint32_t num, uint8_t decimals, uint8_t rightspace)
 ```
-Writes a unsigned 16bit integer by eventually turning on the comma/point on a certain digit and eventually leaving some space on the right if you want to put a simbol or simply left-align the number.    
-- _num_: 16 bit unsigned integer (0 to 65535).
+Writes an unsigned integer by eventually turning on the comma/point on a certain digit and eventually leaving some space on the right if you want to put a simbol or simply left-align the number.    
+- _num_: unsigned integer (0 to 99999999).
 - _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
@@ -174,16 +174,17 @@ Function will remove also previous numbers from digits if the current number to 
 ---
 
 ```c
-uint8_t MAX7219_putsn(int16_t num, uint8_t decimals, uint8_t rightspace)
+uint8_t MAX7219_putsn(int32_t num, uint8_t decimals, uint8_t rightspace)
 ```
-As above but writes a 16bit signed integer by putting a minus sign near the most-left digit.  
-- _num_: 16 bit signed integer (-32768 to 32767).
+As above but writes a signed integer by putting a minus sign near the most-left digit.  
+- _num_: signed integer (-9999999 to 99999999).
 - _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
 Returns: minus sign position (position of most-left printed digit).  
 
 All considerations made for the _MAX7219_putun_ are applied also to this function.  
+Since 32bit integers are used and display is 8 digit, you can always use this function for signed or unsigned integers
 
 ---
 
@@ -195,6 +196,14 @@ Writes a constant string using scrolling effect, from right to left.
 - _disappear_: _true_: string will scroll out of the display | _false_: last _DIGITS_ chars of the string will remain visualized  
 
 Note: the maximum amount of string chars is given by _SCROLLBUFFER_-1-_DIGITS_-(_DIGITS_ * _disappear_), since _DIGITS_ spaces are added on the left of the string and eventually other _DIGITS_ spaces on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use the _disappear_ flag, you can write max 63 chars.
+
+---
+
+```c
+void MAX7219_glow(uint8_t times)
+```
+Glows the display using both Intensity and Shutdown registers
+- _times_: number of glowing cycles. One glowing cycle starts from maximum brightness, arrives to the lowest one, turns off the display, turns on, then restart from minimum brightness and arrives to the maximum one giving a glowing effect.  
 
 ## Support me ##
   
