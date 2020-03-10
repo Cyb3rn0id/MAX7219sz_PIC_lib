@@ -154,29 +154,29 @@ Writes a string on the display using the font defined in the library header, usi
 ---
 
 ```c
-uint8_t MAX7219_putun(uint16_t num, uint8_t pointPos, uint8_t rightspace)
+uint8_t MAX7219_putun(uint16_t num, uint8_t decimals, uint8_t rightspace)
 ```
 Writes a unsigned 16bit integer by eventually turning on the comma/point on a certain digit and eventually leaving some space on the right if you want to put a simbol or simply left-align the number.    
 - _num_: 16 bit unsigned integer (0 to 65535).
-- _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
+- _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
 Returns: position of most-left printed digit.
 
 Numbers are right-aligned, you can use _rightspace_ parameter also for move them on the left.  
 
-_pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+_decimals_ is used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then set the number of decimals to show.    
 
 Function will remove also previous numbers from digits if the current number to be printed is smaller than previous one: if you print "12345" and after you'll print "1" in other cases you'll visualize 12341 since you're printing 1 and the previous digits will remain. The library keeps in mind the most-left used digit and will remove all previous digits until the new ones but does not perform a display clear that will cause flickering: only previous unused digits are cancelled.  
 
 ---
 
 ```c
-uint8_t MAX7219_putsn(int16_t num, uint8_t pointPos, uint8_t rightspace)
+uint8_t MAX7219_putsn(int16_t num, uint8_t decimals, uint8_t rightspace)
 ```
 As above but writes a 16bit signed integer by putting a minus sign near the most-left digit.  
 - _num_: 16 bit signed integer (-32768 to 32767).
-- _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
+- _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
 Returns: minus sign position (position of most-left printed digit).  
