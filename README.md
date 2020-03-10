@@ -13,14 +13,14 @@ You can read how MAX7219 works on my blog [in this page](https://www.settorezero
 Library is tested with Microchip PIC Microcontrollers up to 32MHz. The critical part is that MAX7219 needs a minimum pulse duration of 50nS. With a 32MHz 8bit PIC there are about 62,5nS pulse durations (instruction cycle of a PIC12/16/18 is 4 clock cycles). Using a PIC microcontroller having a Fosc>32MHz you need to insert delays between clock and latch pulses.  
 
 ### Pins used
-MAX7219 needs 3 GPIOS.
+MAX7219 needs 3 GPIOs (General Purpose Input/Output).
 
 ### Limitations
 Library is currently tested for a single MAX7219 (8 Digits) and only for 7-segment displays. Led Matrix are not supported.
   
 ## Libray Setup
 
-It's reccomended to use the [MPLAB Code Configurator](https://www.microchip.com/mplab/mplab-code-configurator). Choose 3 pins, make them digital outputs and rename them as: _MAX_DAT_, _MAX_CLK_ and _MAX_LAT_:  
+It's reccomended to use the [MPLAB(R) Code Configurator](https://www.microchip.com/mplab/mplab-code-configurator). Choose 3 pins, make them digital outputs and rename them as: _MAX_DAT_, _MAX_CLK_ and _MAX_LAT_:  
 
 - _MAX_DAT_ : connected to MAX7219 _DIN_ pin (pin n°1)
 - _MAX_CLK_ : connected to MAX7219 _CLK_ pin (pin n°13)
@@ -185,3 +185,8 @@ Note: the maximum amount string chars is given by _SCROLLBUFFER_-_DIGITS_-(_DIGI
 ## Support me ##
   
 If you want to support my free work, you can make me a gift from my [amazon wishlist](https://www.amazon.it/gp/registry/wishlist/DX4SUGLWNLYB/) or give a reading [here](https://www.settorezero.com/wordpress/info/donazioni/)
+
+## Trademarks ##
+Microchip, PIC are registered trademarks property of Microchip Technology Inc. [Here is a list](https://www.microchip.com/about-us/legal-information/trademarks/microchip-trademarks) of Microchip Technology Inc. trademarks.
+Maxim is a registered trademark property of Maxim Integrated Products Inc. [Here is a list](https://www.maximintegrated.com/en/legal/trademarks.cfm) of Maxim Integrated Products trademarks.
+All other brands or product names are property of their respective holders.  
