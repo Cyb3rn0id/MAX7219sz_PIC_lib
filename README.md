@@ -70,8 +70,8 @@ Sends a byte to the selected register.
 - _reg_: MAX7219 register to write in
 - _dat_: data to be written in the register  
 
-Note: This function is used also for writing chars in the _NODECODE_ mode. Example:  
-_MAX7219_send(8,'A')_ => writes the A letter on the 8th digit (the most-left digit).
+Note: This function is used also for writing symbols in the _NODECODE_ mode, in that case the _dat_ value must define wich segments must be turned on. Example:  
+_MAX7219_send(8,SEGA|SEGB|SEGF|SEGG|SEGE|SEGC)_ => writes the A letter on the 8th digit (the most-left digit) by turning all segments but segment d and comma/point.
 
 ---
 
