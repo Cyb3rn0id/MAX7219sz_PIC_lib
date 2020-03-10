@@ -159,6 +159,7 @@ Writes a unsigned 16bit integer by eventually turning on the comma/point on a ce
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
 Returns: position of most-left printed digit (used by _MAX7219_putsn_ for writing the minus sign near the most-left digit).  
+
 Note: _pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
 
 ---
@@ -182,9 +183,9 @@ void MAX7219_scroll(const char *s, bool disappear)
 ```
 Writes a constant string using scrolling effect, from right to left.
 - _s_: String
-- _disappear_: _true_: string will scroll out of the string | _false_: last _DIGITS_ chars of the string will remain visualized  
+- _disappear_: _true_: string will scroll out of the display | _false_: last _DIGITS_ chars of the string will remain visualized  
 
-Note: the maximum amount string chars is given by _SCROLLBUFFER_-_DIGITS_-(_DIGITS_ * _disappear_), since are added _DIGITS_ spaces on the left of the string and eventually _DIGITS_ spaces on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use the _disappear_ flag, you can write max 64 chars.
+Note: the maximum amount of string chars is given by _SCROLLBUFFER_-1-_DIGITS_-(_DIGITS_ * _disappear_), since _DIGITS_ spaces are added on the left of the string and eventually other _DIGITS_ spaces on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use the _disappear_ flag, you can write max 63 chars.
 
 ## Support me ##
   
