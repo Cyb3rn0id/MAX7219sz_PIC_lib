@@ -158,20 +158,22 @@ Writes a unsigned 16bit integer by eventually turning on the comma/point on a ce
 - _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
-Returns: the number of digits printed (used by _MAX7219_putsn_ for writing the minus sign near the most-left digit).  
-Note: _pointPos_ is intenedd to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+Returns: position of most-left printed digit (used by _MAX7219_putsn_ for writing the minus sign near the most-left digit).  
+Note: _pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
 
 ---
 
 ```c
-void MAX7219_putsn(int16_t num, uint8_t pointPos, uint8_t rightspace)
+uint8_t MAX7219_putsn(int16_t num, uint8_t pointPos, uint8_t rightspace)
 ```
 As above but writes a 16bit signed integer by putting a minus sign near the most-left digit.  
 - _num_: 16 bit signed integer (-32768 to 32767).
 - _pointPos_: digit where turning on the comma/point, from 1 to 8. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
 
-Note: _pointPos_ is intenedd to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
+Returns: minus sign position (position of most-left printed digit)  
+
+Note: _pointPos_ is intended to be used for fixed-point decimal notation. So if you must print a decimal number, you can multiply it by a power of 10 to transform it in an integer and then turn on the point/comma on the desidered digit.    
 
 ---
 
