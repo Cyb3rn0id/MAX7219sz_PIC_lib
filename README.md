@@ -21,7 +21,9 @@ MAX7219 needs 3 GPIOs (General Purpose Input/Output).
 Library is currently tested for a single MAX7219 (8 Digits) and only for 7-segment displays. Led Matrix are not supported.
 
 ### Misc Info
-Digits are numbered from right (1) to left (8)  
+Digits are numbered from right (1) to left (8), so digits are 1-based index (MAX7219 starts from digit 1).    
+Strings are left-aligned. You can pad strings putting blank spaces in front on them.  
+Numbers are right-aligned. You can pad numbers using a parameter in the function that prints number.   
   
 ## Libray Setup
 
@@ -81,7 +83,7 @@ _MAX7219_send(8,SEGA|SEGB|SEGF|SEGG|SEGE|SEGC)_ => writes the A letter on the 8t
 ```c
 void MAX7219_putch(uint8_t digit, char ch, bool point)
 ```
-Writes a single char on the selected digit.  
+Writes a single ASCII char on the selected digit.  
 - _digit_: digit number to write on (from 1 to 8)
 - _ch_: char to write (ex.: 'g', '1', '.' ecc)
 - _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit  
