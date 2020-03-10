@@ -1,21 +1,26 @@
 # MAX7219 Library for Microchip PIC microcontrollers
 
+**Version: 1.0**  
+
 This is a library for MAX7219 and 7-segments displays (no led matrix) to be used with Microchip PIC microcontrollers.  
 Library is licensed under [AGPLv3 license](https://github.com/Cyb3rn0id/MAX7219_PIC_lib/blob/master/LICENSE).  
 
 You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.  
   
-## Implementation notes
+## Preliminary Info
 
 ### Microcontroller Instruction Cycle
 Library is tested with Microchip PIC Microcontrollers up to 32MHz. The critical part is that MAX7219 needs a minimum pulse duration of 50nS. With a 32MHz 8bit PIC there are about 62,5nS pulse durations (instruction cycle of a PIC12/16/18 is 4 clock cycles). Using a PIC microcontroller having a Fosc>32MHz you need to insert delays between clock and latch pulses.  
 
 ### Pins used
-You need 3 GPIOS defined as outputs: Data, Clock and Latch (!CS/LOAD).  
-  
-## Setup
+MAX7219 needs 3 GPIOS.
 
-It's reccomended to use the [MPLAB Code Configurator](https://www.microchip.com/mplab/mplab-code-configurator): choose 3 pins, make them digital outputs and rename them as: _MAX_DAT_, _MAX_CLK_ and _MAX_LAT_:  
+### Limitations
+Library is currently tested for a single MAX7219 (8 Digits) and only for 7-segment displays. Led Matrix are not supported.
+  
+## Libray Setup
+
+It's reccomended to use the [MPLAB Code Configurator](https://www.microchip.com/mplab/mplab-code-configurator). Choose 3 pins, make them digital outputs and rename them as: _MAX_DAT_, _MAX_CLK_ and _MAX_LAT_:  
 
 - _MAX_DAT_ : connected to MAX7219 _DIN_ pin (pin n°1)
 - _MAX_CLK_ : connected to MAX7219 _CLK_ pin (pin n°13)
@@ -27,6 +32,7 @@ Now you can make changes in the header library file (_MAX7219sz.h_):
 
 - change _DIGITS_ value to fit your display. Actually the library is tested only for 8 digits
 - if you want to use different delay libraries, change _DELAYCURSOR_ and _DELAYSCROLL_ macros. You can also change the delay values in those two macros if you desire different writing/scrolling speeds. 
+- change eventually _SCROLLBUFFER_ value if you want to use scrolling effect with less chars. See _MAX7219_scroll_ function description for further informations.
   
   
 ## Library Functions
@@ -168,6 +174,14 @@ Note: _pointPos_ is intenedd to be used for fixed-point decimal notation. So if 
 ---
 
 ```c
-void MAX7219_scroll(const char *s);
+void MAX7219_scroll(const char *s, bool disappear)
 ```
 Writes a constant string using scrolling effect, from right to left.
+- _s_: String
+- _disappear_: _true_: string will scroll out of the string | _false_: last _DIGITS_ chars of the string will remain visualized  
+
+Note: the maximum amount string chars is given by _SCROLLBUFFER_-_DIGITS_-(_DIGITS_ * _disappear_), since are added _DIGITS_ spaces on the left of the string and eventually _DIGITS_ spaces on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use the _disappear_ flag, you can write max 64 chars.
+
+## Support me ##
+  
+If you want to support my free work, you can make me a gift from my [amazon wishlist](https://www.amazon.it/gp/registry/wishlist/DX4SUGLWNLYB/) or give a reading [here](https://www.settorezero.com/wordpress/info/donazioni/)
