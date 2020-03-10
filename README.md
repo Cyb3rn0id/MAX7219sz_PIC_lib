@@ -189,13 +189,14 @@ Since 32bit integers are used and display is 8 digit, you can always use this fu
 ---
 
 ```c
-void MAX7219_scroll(const char *s, bool disappear)
+void MAX7219_scroll(const char *s, bool appear, bool disappear)
 ```
 Writes a constant string using scrolling effect, from right to left.
 - _s_: String
+- _appear_: _true_: first _DIGITS_ chars of string will appear immediately | _false_: string will appear from the right one char at time 
 - _disappear_: _true_: string will scroll out of the display | _false_: last _DIGITS_ chars of the string will remain visualized  
 
-Note: the maximum amount of string chars is given by _SCROLLBUFFER_-1-_DIGITS_-(_DIGITS_ * _disappear_), since _DIGITS_ spaces are added on the left of the string and eventually other _DIGITS_ spaces on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use the _disappear_ flag, you can write max 63 chars.
+Note: the maximum amount of string chars is given by _SCROLLBUFFER_-1-(_DIGITS_ * _appear_)-(_DIGITS_ * _disappear_). If _appear_==_true_ _DIGITS_ spaces are added on the left of the string and other _DIGITS_ spaces are added on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use both _appear_ and  _disappear_ flags, you can write max 63 chars.
 
 ---
 
