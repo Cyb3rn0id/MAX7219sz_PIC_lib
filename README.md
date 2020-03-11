@@ -45,6 +45,7 @@ If you've never used the MPLAB Code Configurator it's the good time for start. Y
 After you've defined pins, you can include _MAX7219sz.h_ and _MAX7219.c_ in your project and make changes in the header library file (_MAX7219sz.h_):  
 
 - change _DIGITS_ value to fit your display. Actually the library is tested only for 8 digits. If your display uses less than 8 digits, you must be aware about the limit resistor and intensity register, in other cases your display and MAX7219 can be damaged.
+- change _MAXINTENSITY_ value. The maximum value is 9. If you use less than 8 digits is better lower this value.
 - if you want to use different delay libraries, change _DELAYCURSOR_, _DELAYSCROLL_ and _DELAYBLINK_ macros that are used respectively for the speed of cursor effect in the _MAX7219_puts_ function, the scrolling speed in the _MAX7219_scroll_ function and the blinking speed in the _MAX7219_blink_ function. You can also change the delay values in those macros if you desire different writing/scrolling/blinking speeds. 
 - change eventually _SCROLLBUFFER_ value if you want to use scrolling effect with less chars and then saving some memory. See _MAX7219_scroll_ function description for further informations.
   
@@ -130,9 +131,9 @@ Turns on the _NODECODE_ mode (you must use chars and numbers as defined in the l
 ```c
 void MAX7219_setIntensity(uint8_t val)
 ```
-Set the display brightness.  Any value higher than 9 will be converted in 9.  A value of 0 does not turns off the display visualization: digits are still visibile even it appears faint.  If you want to slowly lower the luminosity making display disappear, you must use the _MAX7219_shutdown_ function at the final point. See the _MAX7219_glow_ function for further informations.
+Set the display brightness.  Any value higher than _MAXINTENSITY_ will be converted in _MAXINTENSITY_.  A value of 0 does not turns off the display visualization: digits are still visibile even it appears faint.  If you want to slowly lower the luminosity making display disappear, you must use the _MAX7219_shutdown_ function at the final point. See the _MAX7219_glow_ function for further informations.
 
-- _val_: integer value from 0 (lowest) to 9 (highest)  
+- _val_: integer value from 0 (lowest) to _MAXINTENSITY_ (highest)  
 
 ---
 
@@ -216,12 +217,12 @@ Glows the display using both Intensity and Shutdown registers.
 
 One glowing cycle is made of those events:  
 
-- start from maximum brightness (9)
+- start from maximum brightness (_MAXINTENSITY_)
 - slowly decrement the brightness arriving to the minimum value (0)
 - turn off the display visualization
 - turn on the display visualization
 - start from minimum brightness (0)
-- slowly increment the brightness arriving to the maximum value (9)
+- slowly increment the brightness arriving to the maximum value (_MAXINTENSITY_)
 
 ---
 
