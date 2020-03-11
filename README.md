@@ -76,7 +76,15 @@ This function is used only in the _NODECODE_ mode.
 Display remains ON: only internal shift register of MAX7219 is erased.
 
 ---
+```c
+void MAX7219_lclearc(uint8_t startpos)
+```
+Clears all digits using the cursor effect from right to left starting from the most right used digit until _starpos_ digit.  
+This function is used only in the _NODECODE_ mode.  
+Display remains ON: only internal shift register of MAX7219 is erased.  
+This function is used for deleting text inserted by the _MAX7219_lputs_ function.
 
+---
 ```c
 void MAX7219_send(uint8_t reg, uint8_t dat)
 ```
@@ -131,7 +139,7 @@ Turns on the _NODECODE_ mode (you must use chars and numbers as defined in the l
 ```c
 void MAX7219_setIntensity(uint8_t val)
 ```
-Set the display brightness.  Any value higher than _MAXINTENSITY_ will be converted in _MAXINTENSITY_.  A value of 0 does not turns off the display visualization: digits are still visibile even it appears faint.  If you want to slowly lower the luminosity making display disappear, you must use the _MAX7219_shutdown_ function at the final point. See the _MAX7219_glow_ function for further informations.
+Set the display brightness.  Any value higher than _MAXINTENSITY_ will be converted in _MAXINTENSITY_.  A value of 0 does not turns off the display visualization: digits are still visibile even them appears faint.  If you want to slowly lower the luminosity making display disappearing, you must use the _MAX7219_shutdown_ function at the final point. See the _MAX7219_glow_ function for further informations.
 
 - _val_: integer value from 0 (lowest) to _MAXINTENSITY_ (highest)  
 
@@ -156,13 +164,25 @@ Turns on or off the display visualization. After turning off, MAX7219 shift regi
 ```c
 void MAX7219_puts(const char *s, bool cursor)
 ```
-Writes a constant string on the display using the font defined in the library header, using or no the cursor visual effect. The string will be printed from left to right and the last used digit will be saved in RAM memory for the _MAX7219_clearc_ function.
+Writes a constant string on the display using the font defined in the library header, using or no the cursor visual effect, starting from the most-left digit. The string will be printed from left to right and the last used digit will be saved in RAM memory for the _MAX7219_clearc_ and _MAX7219_lclearc_ functions.
 
 - _s_: string to write (ex.: _"hello"_) - you must use the double quotation mark (ASCII 34)
 - _cursor_: display the string using the cursor effect (_true_) or make string appearing immediately without visual effects (_false_)  
 
 If string is bigger than _DIGITS_ chars, will be truncated.  
 
+---
+
+```c
+void MAX7219_lputs(const char *s, bool cursor, uint8_t startpos)
+```
+Writes a constant string on the display using the font defined in the library header, using or no the cursor visual effect, starting from a specified digit. The string will be printed from left to right and the last used digit will be saved in RAM memory for the _MAX7219_clearc_ and _MAX7219_lclearc_ functions.
+
+- _s_: string to write (ex.: _"hello"_) - you must use the double quotation mark (ASCII 34)
+- _cursor_: display the string using the cursor effect (_true_) or make string appearing immediately without visual effects (_false_)  
+- _startpos_: digit from which starting to print
+
+String is truncated after the digit 1.  
 
 ---
 
