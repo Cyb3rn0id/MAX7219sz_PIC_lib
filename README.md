@@ -10,7 +10,7 @@ You can read how MAX7219 works on my blog [in this page](https://www.settorezero
 ![MAX7219 and 7-Segments Led Display](image.jpg)  
 
 This is a video of the demo:  
-![MAX7219sz PIC Lib Demo](https://img.youtube.com/vi/tz2HAa73ssA/maxresdefault.jpg)
+[![MAX7219sz PIC Lib Demo](https://img.youtube.com/vi/tz2HAa73ssA/maxresdefault.jpg)](https://www.youtube.com/watch?v=tz2HAa73ssA)
   
 ## Preliminary Info
 
