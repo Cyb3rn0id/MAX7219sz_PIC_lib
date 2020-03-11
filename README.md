@@ -71,11 +71,12 @@ Display remains ON: only internal shift register is cancelled.
 ```c
 void MAX7219_send(uint8_t reg, uint8_t dat)
 ```
-Sends a byte to the selected register.
+Sends a byte to the selected register  
+
 - _reg_: MAX7219 register to write in
 - _dat_: data to be written in the register  
 
-Note: This function is used also for writing symbols in the _NODECODE_ mode, in that case the _dat_ value must define wich segments must be turned on. Example:  
+This function is used also for writing symbols in the _NODECODE_ mode, in that case the _dat_ value must define wich segments must be turned on. Example:  
 _MAX7219_send(8,SEGA|SEGB|SEGF|SEGG|SEGE|SEGC)_ => writes the A letter on the 8th digit (the most-left digit) by turning all segments but segment d and comma/point.
 
 ---
@@ -83,12 +84,13 @@ _MAX7219_send(8,SEGA|SEGB|SEGF|SEGG|SEGE|SEGC)_ => writes the A letter on the 8t
 ```c
 void MAX7219_putch(uint8_t digit, char ch, bool point)
 ```
-Writes a single ASCII char on the selected digit.  
+Writes a single ASCII char on the selected digit  
+
 - _digit_: digit number to write on (from 1 to 8)
 - _ch_: char to write (ex.: 'g', '1', '.' ecc)
 - _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit  
 
-Note: you can use both uppercase and lowercase letters, in every case letters will be converted to use the defined font in the library header.  
+You can use both uppercase and lowercase letters, in every case letters will be converted to use the defined font in the library header. 
 You can write all letters but W,X that can't be effectively rendered on 7-segments displays. Some other chars will look weird (the Z is rendered as 2) but..hey... it's a 7-segment display!  
 
 ---
@@ -96,7 +98,8 @@ You can write all letters but W,X that can't be effectively rendered on 7-segmen
 ```c
 void MAX7219_numch(uint8_t digit, uint8_t n, bool point)
 ```
-Writes a number as char on the selected digit.
+Writes a number as char on the selected digit  
+
 - _digit_: digit number to write on (from 1 to 8)
 - _n_: number to write, inserted as integer from 0 to 9
 - _point_: will turn on (_true_) or off (_false_) the point/comma on the selected digit
@@ -106,8 +109,7 @@ Writes a number as char on the selected digit.
 ```c
 void MAX7219_setDecode(void)
 ```
-Turns on the _DECODE_ Mode (BCD Code B).  
-From this moment you can't use the user-defined font and you must use only the _MAX7219_send_ function for writing numbers from 0 to 9 and H,E,L,P letters and minus sign.  
+Turns on the _DECODE_ Mode (BCD Code B). From this moment you can't use the user-defined font and you must use only the _MAX7219_send_ function for writing numbers from 0 to 9 and H,E,L,P letters and minus sign.  
 
 ---
 
@@ -121,49 +123,47 @@ Turns on the _NODECODE_ mode (you must use chars and numbers as defined in the l
 ```c
 void MAX7219_setIntensity(uint8_t val)
 ```
-Set the display brightness.  
-- _val_: value from 0 (lowest) to 9 (highest)  
+Set the display brightness.  Any value higher than 9 will be converted in 9.  
 
-Note: any value higher than 9 will be converted in 9.
+- _val_: value from 0 (lowest) to 9 (highest)  
 
 ---
 
 ```c
 void MAX7219_test(void)
 ```
-Turns on the test mode (all leds on).   
-For exiting the test mode you must recall the _MAX7219_init_ function since the test mode overwrites all settings.  
+Turns on the test mode (all leds on). For exiting the test mode you must recall the _MAX7219_init_ function since the test mode overwrites all settings.  
 
 ---
 
 ```c
 void MAX7219_shutdown(bool yesno)
 ```
-Turns on or off the display visualization.  
-- _yesno_: _true_:no display visualization | _false_:display is on.  
+Turns on or off the display visualization. shift register content is not deleted, so digits data are retained.  
 
-Note: shift register content is not deleted, so digits data are retained.  
+- _yesno_: _true_:no display visualization | _false_:display is on.  
 
 ---
 
 ```c
 void MAX7219_puts(const char *s, bool cursor)
 ```
-Writes a string on the display using the font defined in the library header, using or no the cursor visual effect, from left to right.  
+Writes a string on the display using the font defined in the library header, using or no the cursor visual effect, from left to right  
+
 - _s_: string to write (ex.: _"hello"_)
 - _cursor_: _true_:use the cursor effect | _false_:string appears on the digits without visual effects  
 
 ---
 
 ```c
-uint8_t MAX7219_putun(uint32_t num, uint8_t decimals, uint8_t rightspace)
+uint8_t MAX7219_putn(int32_t num, uint8_t decimals, uint8_t rightspace)
 ```
-Writes an unsigned integer by eventually turning on the comma/point on a certain digit and eventually leaving some space on the right if you want to put a simbol or simply left-align the number.    
-- _num_: unsigned integer (0 to 99999999).
+Writes an integer by eventually turning on the comma/point on a certain digit and eventually leaving some space on the right if you want to put a simbol or simply left-align the number. The minus sign will added near the most-left digit if needed. Function uses a 32bit signed integer so the number of visualized digits is limited in the library to 8-digits display width.  
+
+- _num_: signed or unsigned integer (from -9999999 to 99999999, since those are the maximum numbers an 8-digit display can show).
 - _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
 - _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
-
-Returns: position of most-left printed digit.
+- Returns: position of most-left printed digit (minus sign included).
 
 Numbers are right-aligned, you can use _rightspace_ parameter also for move them on the left.  
 
@@ -174,37 +174,41 @@ Function will remove also previous numbers from digits if the current number to 
 ---
 
 ```c
-uint8_t MAX7219_putsn(int32_t num, uint8_t decimals, uint8_t rightspace)
+uint8_t MAX7219_putun(uint32_t num, uint8_t decimals, uint8_t rightspace)
 ```
-As above but writes a signed integer by putting a minus sign near the most-left digit.  
-- _num_: signed integer (-9999999 to 99999999).
-- _decimals_: if >0 will turn on the point leaving this number of digits after the point. Put 0 if you don't want to turn on the point.
-- _rightspace_: places to leave free on the most-right position. Put 0 if you want to right-align the number.  
-
-Returns: minus sign position (position of most-left printed digit).  
-
-All considerations made for the _MAX7219_putun_ are applied also to this function.  
-Since 32bit integers are used and display is 8 digit, you can always use this function for signed or unsigned integers
+Same as _MAX7219_putn_ but used only for unsigned integers. Since the number of digits is limited to display width, better use the _MAX7218_putn_ function in every case. This function will remain for future implementations using more than one MAX7219.
 
 ---
 
 ```c
-void MAX7219_scroll(const char *s, bool appear, bool disappear)
+MAX7219_scroll(const char *s, bool appear, bool disappear)
 ```
-Writes a constant string using scrolling effect, from right to left.
+Writes a constant string using scrolling effect, from right to left  
+
 - _s_: String
 - _appear_: _true_: first _DIGITS_ chars of string will appear immediately | _false_: string will appear from the right one char at time 
 - _disappear_: _true_: string will scroll out of the display | _false_: last _DIGITS_ chars of the string will remain visualized  
 
-Note: the maximum amount of string chars is given by _SCROLLBUFFER_-1-(_DIGITS_ * _appear_)-(_DIGITS_ * _disappear_). If _appear_==_true_ _DIGITS_ spaces are added on the left of the string and other _DIGITS_ spaces are added on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use both _appear_ and  _disappear_ flags, you can write max 63 chars.
+The maximum amount of string chars is given by _SCROLLBUFFER_-1-(_DIGITS_ * _appear_)-(_DIGITS_ * _disappear_). If _appear_==_true_ _DIGITS_ spaces are added on the left of the string and other _DIGITS_ spaces are added on the right if you use the _disappear_ flag in this function. So if _SCROLLBUFFER_ is 80, your display has 8 digits and you use both _appear_ and  _disappear_ flags, you can write max 63 chars.
 
 ---
 
 ```c
 void MAX7219_glow(uint8_t times)
 ```
-Glows the display using both Intensity and Shutdown registers
+Glows the display using both Intensity and Shutdown registers  
+
 - _times_: number of glowing cycles. One glowing cycle starts from maximum brightness, arrives to the lowest one, turns off the display, turns on, then restart from minimum brightness and arrives to the maximum one giving a glowing effect.  
+
+---
+
+```c
+void MAX7219_blink(uint8_t times)
+```
+Blinks the display using Shutdown register  
+
+- _times_: number of blinking cycles. A single blink is made turning off and then on the display.
+
 
 ## Support me ##
   
