@@ -130,7 +130,7 @@ Turns on the _NODECODE_ mode (you must use chars and numbers as defined in the l
 ```c
 void MAX7219_setIntensity(uint8_t val)
 ```
-Set the display brightness.  Any value higher than 9 will be converted in 9.  A value of 0 does not turns off the display visualization: digits are still visibile even they appear faint.  
+Set the display brightness.  Any value higher than 9 will be converted in 9.  A value of 0 does not turns off the display visualization: digits are still visibile even it appears faint.  If you want to slowly lower the luminosity making display disappear, you must use the _MAX7219_shutdown_ function at the final point. See the _MAX7219_glow_ function for further informations.
 
 - _val_: integer value from 0 (lowest) to 9 (highest)  
 
