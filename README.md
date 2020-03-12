@@ -31,7 +31,7 @@ Library is currently tested for a single MAX7219 (8 Digits) and only for 7-segme
 
 ### Misc Info
 Digits are numbered from right (1) to left (8), so digits are 1-based index (MAX7219 starts from digit 1).    
-Strings are left-aligned. You can pad strings putting blank spaces in front on them.  
+Strings are normally left-aligned. You can pad strings using the function _MAX7219_lputs_ instead of _MAX7219_puts_.  
 Numbers are right-aligned. You can pad numbers using a parameter in the function that prints number.   
   
 ## Libray Setup
