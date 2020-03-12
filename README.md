@@ -217,7 +217,7 @@ MAX7219_scroll(const char *s, bool appear, bool disappear)
 Writes a constant string using scrolling effect, from right to left  
 
 - _s_: String
-- _appear_: choose to make appear immediately the first _DIGITS_ chars of the string (_true_) or start the scroll with a blank display (or previous chars visualized that will be overwrited) making the string appear from the right one char at time (_false_)
+- _appear_: choose to make appear immediately the first _DIGITS_ chars of the string (_false_) or start the scroll with a blank display (or previous chars visualized that will be overwrited) making the string appear from the right one char at time (_true_)
 - _disappear_: choose to make string scrolling out of the display leaving it blank (_true_) or  make last _DIGITS_ chars of the string remain visualized (_false_)
 
 The maximum amount of string chars is given by:  
