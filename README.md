@@ -7,8 +7,12 @@ Library is licensed under [AGPLv3 license](https://github.com/Cyb3rn0id/MAX7219_
 
 You can read how MAX7219 works on my blog [in this page](https://www.settorezero.com/wordpress/max7219-pilotare-display-a-7-segmenti-o-matrici-di-led-e-un-gioco-da-ragazzi/) => It's in italian language but I've included a translation service on the right bar where you can select your language.  
 
+[Folowing this link](https://www.settorezero.com/wordpress/max7219-libreria-per-usare-display-led-a-7-segmenti-con-i-microcontrollori-pic/) you can read an article, in italian language, about this library. If you don't speak italian this link is not necessary since usage instructions in english are just here.
+
 This is a video showing the demo:  
-[![MAX7219sz PIC Lib Demo](https://img.youtube.com/vi/tz2HAa73ssA/maxresdefault.jpg)](https://www.youtube.com/watch?v=tz2HAa73ssA)
+[![MAX7219sz PIC Lib Demo](https://img.youtube.com/vi/tz2HAa73ssA/maxresdefault.jpg)](https://www.youtube.com/watch?v=tz2HAa73ssA)  
+
+The demo is made using the PIC16F15376 Curiosity Nano. You can download the demo [here](https://github.com/Cyb3rn0id/Microchip_Curiosity_Nano_Examples/tree/master/16F15376_Curiosity_Nano_MAX7219.X)  
   
 ## Preliminary Info
 
