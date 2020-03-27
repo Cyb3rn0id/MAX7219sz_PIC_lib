@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)  
+
 # MAX7219 Library for Microchip(R) PIC(R) microcontrollers
 
 **Version: 1.0**  
